@@ -1,0 +1,4 @@
+[config]
+# 发送的个人微信或者微信群
+# friends=['最爱靓女卿']
+groups=['warnning']
