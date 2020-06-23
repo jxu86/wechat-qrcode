@@ -3,7 +3,7 @@ from pyzbar import pyzbar
 import argparse
 import cv2
 import requests
-from PIL import Image, ImageDraw, ImageFilter
+# from PIL import Image, ImageDraw, ImageFilter
 import qrcode
 import time
 def revertShortLink(url):
