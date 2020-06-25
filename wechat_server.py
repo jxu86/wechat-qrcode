@@ -26,7 +26,7 @@ class Server():
             try:
                 filePath = qs.createNewImg('file_tmp/tmp.jpg')
                 if filePath:
-                    g = bot.friends().search('warnning')[0]
+                    g = bot.groups().search('warnning')[0]
                     print('group==>', g)
                     g.send_image(filePath)
             except Exception as e:
@@ -35,18 +35,19 @@ class Server():
             
     
     def get_receivers(self):
-        try:
-            if 'friends' in self._config:
-                self._receivers += [self._bot.friends().search(f)[0] for f in self._config['friends']]
-            if 'groups' in self._config:
-                self._receivers += [self._bot.groups().search(g)[0] for g in self._config['groups']]
-            # print('friends len=>', len(self._bot.friends()))
-            for group in self._bot.groups():
-                print(group)
-            print(self._bot.groups().search('warnning')[0])
-            print('wechat receivers: {}'.format(self._receivers))
-        except Exception as e:
-            print('error: {}'.format(e))
+        print('groups =>', self._bot.groups())
+        # try:
+        #     if 'friends' in self._config:
+        #         self._receivers += [self._bot.friends().search(f)[0] for f in self._config['friends']]
+        #     if 'groups' in self._config:
+        #         self._receivers += [self._bot.groups().search(g)[0] for g in self._config['groups']]
+        #     # print('friends len=>', len(self._bot.friends()))
+        #     for group in self._bot.groups():
+        #         print(group)
+        #     print(self._bot.groups().search('warnning')[0])
+        #     print('wechat receivers: {}'.format(self._receivers))
+        # except Exception as e:
+        #     print('error: {}'.format(e))
 
     def handle_data(self, data):
         for friend in self._receivers:
