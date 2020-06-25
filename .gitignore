@@ -122,4 +122,7 @@ nbproject
 *.csv
 __pycache__/
 .idea/
-
+*.png
+*.jpg
+*.jpeg
+*.pkl

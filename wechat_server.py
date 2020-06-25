@@ -26,7 +26,8 @@ class Server():
             try:
                 filePath = qs.createNewImg('file_tmp/tmp.jpg')
                 if filePath:
-                    g = bot.groups().search('warnning')[0]
+                    # g = bot.groups().search('warnning')[0] # 周小姐的品牌正品特卖店
+                    g = bot.groups().search('周小姐的品牌正品特卖店')[0]
                     print('group==>', g)
                     g.send_image(filePath)
             except Exception as e:
