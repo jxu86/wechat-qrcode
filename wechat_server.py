@@ -15,16 +15,18 @@ class Server():
 
    # bot.groups().search('优选品牌限时超低折扣群')[0],
     @bot.register(chats = [bot.groups().search('优选品牌限时超低折扣群')[0]], except_self=False)
+    # @bot.register(chats = [bot.groups().search('warnning')[0]], except_self=False)
     def monitorGroup(msg):
         # print('msg type==>',type(msg))
         print('msg type==>',msg.type)
-        print('msg member==>',msg.member)
-        if msg.type == 'Picture':
+        # print('msg member==>',msg.member)
+        print('msg member name==>',msg.member.name)
+        if msg.type == 'Picture' and msg.member.name == '晴朗':
             msg.get_file('file_tmp/tmp.jpg')
             try:
                 filePath = qs.createNewImg('file_tmp/tmp.jpg')
                 if filePath:
-                    g = bot.friends().search('jc')[0]
+                    g = bot.friends().search('warnning')[0]
                     print('group==>', g)
                     g.send_image(filePath)
             except Exception as e:
