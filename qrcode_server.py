@@ -9,10 +9,15 @@ import time
 def revertShortLink(url):
     beforeUrl = ''
     for i in range(10):
+        # try:
         url = requests.head(url).headers.get('Location')
+        print('###revertShortLink=>', url)
         if not url:
             return beforeUrl
         beforeUrl = url
+        # except Exception as e:
+        #     print('revertShortLink error:{}'.format(e))
+        #     return beforeUrl
 
 
 def getImgQrcode(imgPath):

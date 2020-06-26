@@ -41,7 +41,7 @@ class Server():
         if msg.type == 'Text' and msg.member.name == '晴朗':
             try:
                 text = msg.text
-                if text:
+                if text and text.find('直播') == -1:
                     g.send(text)
             except Exception as e:
                 print('createNewImg error:{}'.format(e))
