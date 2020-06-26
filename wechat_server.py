@@ -21,18 +21,30 @@ class Server():
         print('msg type==>',msg.type)
         # print('msg member==>',msg.member)
         print('msg member name==>',msg.member.name)
+
+        if msg.type == 'Sharing':
+            print('msg url==>',msg.url)
+            print('msg articles==>',msg.articles)
+
+        # g = bot.groups().search('warnning')[0]
+        g = bot.groups().search('周小姐的品牌正品特卖店')[0]
+        # print('msg member name==>',msg.member.name)
+        print('group==>', g)
         if msg.type == 'Picture' and msg.member.name == '晴朗':
             msg.get_file('file_tmp/tmp.jpg')
             try:
                 filePath = qs.createNewImg('file_tmp/tmp.jpg')
                 if filePath:
-                    # g = bot.groups().search('warnning')[0] # 周小姐的品牌正品特卖店
-                    g = bot.groups().search('周小姐的品牌正品特卖店')[0]
-                    print('group==>', g)
                     g.send_image(filePath)
             except Exception as e:
                 print('createNewImg error:{}'.format(e))
-            # self.handle_data('tmp.jpg')
+        if msg.type == 'Text' and msg.member.name == '晴朗':
+            try:
+                text = msg.text
+                if text:
+                    g.send(text)
+            except Exception as e:
+                print('createNewImg error:{}'.format(e))
             
     
     def get_receivers(self):
@@ -58,10 +70,7 @@ class Server():
         
     def run(self):
         print('run...')
-        # self.handle_data('hello world!')
         self._bot.join()
-        # while True:
-        #     pass
 
 def parse_config(config_path):
     with open(config_path) as f:

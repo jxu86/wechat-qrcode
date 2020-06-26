@@ -108,7 +108,7 @@ def createNewImg(imgPath):
     ret = getImgQrcode(imgPath)
     if not ret:
         print('no qrcode!')
-        return None
+        return imgPath
         
     im0 = createLinkQrcode(ret['orgLink'], shopId)
     im0.save('newLink.png')
