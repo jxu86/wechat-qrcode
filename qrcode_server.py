@@ -95,21 +95,21 @@ def createQrcode(data):
 
     return qr.make_image()
 
-
-
-def createLinkQrcode(orgLink, newShopId):
+def createNewLink(orgLink, newShopId):
     orgShopId = orgLink.split('shopId')[1].split('&')[0].split('=')[1]
     print('orgLink:{}'.format(orgLink))
     print('orgShopId:{}'.format(orgShopId))
-
     newLink = orgLink.replace(orgShopId, newShopId)
-    print('newLink:{}'.format(newLink))
+    return newLink
+
+def createLinkQrcode(orgLink, newShopId):
+    newLink = createNewLink(orgLink, newShopId)
     return createQrcode(newLink)
 
 
 
-def createNewImg(imgPath):
-    shopId = 'r5z8PqwirG'
+def createNewImg(imgPath, shopId):
+    # shopId = 'r5z8PqwirG'
     ret = getImgQrcode(imgPath)
     if not ret:
         print('no qrcode!')
@@ -135,7 +135,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", required=True, help="path to input image")
     args = vars(ap.parse_args())
-    createNewImg(args['image'])
+    createNewImg(args['image'], 'r5z8PqwirG')
 
 if __name__ == "__main__":
     main()
