@@ -19,11 +19,10 @@ class Server():
     @bot.register(chats = revGroups, except_self=False)
     #@bot.register(chats = [bot.groups().search('warnning')[0]], except_self=False)
     def monitorGroup(msg):
-        if msg.member.name != '晴朗':
-            return
-
         print('msg type==>',msg.type)
         print('msg member name==>',msg.member.name)
+        if msg.member.name != '晴朗':
+            return
         # g = bot.groups().search('warnning')[0]
         # g = bot.groups().search('周小姐的品牌正品特卖店')[0]
         g = sendGroups[0]
