@@ -6,7 +6,8 @@ import qrcode_server as qs
 
 bot = Bot(console_qr=True, cache_path=True)
 shopId='r5z8PqwirG'
-
+revGroups = [bot.groups().search('优选品牌限时超低折扣群')[0]]
+sendGroups = [bot.groups().search('周小姐的品牌正品特卖店')[0]]
 
 class Server():
     def __init__(self, params):
@@ -15,17 +16,21 @@ class Server():
         self._bot = bot
         self.get_receivers()
 
-    @bot.register(chats = [bot.groups().search('优选品牌限时超低折扣群')[0]], except_self=False)
+    @bot.register(chats = revGroups, except_self=False)
     #@bot.register(chats = [bot.groups().search('warnning')[0]], except_self=False)
     def monitorGroup(msg):
+        if msg.member.name != '晴朗':
+            return
+
         print('msg type==>',msg.type)
         print('msg member name==>',msg.member.name)
-
         # g = bot.groups().search('warnning')[0]
-        g = bot.groups().search('周小姐的品牌正品特卖店')[0]
+        # g = bot.groups().search('周小姐的品牌正品特卖店')[0]
+        g = sendGroups[0]
         print('group==>', g)
         imgTmpPath = 'file_tmp/tmp.jpg'
-        if msg.type == 'Picture' and msg.member.name == '晴朗':
+
+        if msg.type == 'Picture':
             msg.get_file(imgTmpPath)
             try:
                 filePath = qs.createNewImg(imgTmpPath, shopId)
@@ -33,14 +38,14 @@ class Server():
                     g.send_image(filePath)
             except Exception as e:
                 print('createNewImg error:{}'.format(e))
-        elif msg.type == 'Text' and msg.member.name == '晴朗':
+        elif msg.type == 'Text':
             try:
                 text = msg.text
                 if text and text.find('直播') == -1:
                     g.send(text)
             except Exception as e:
                 print('createNewImg error:{}'.format(e))
-        elif msg.type == 'Sharing' and msg.member.name == '晴朗':
+        elif msg.type == 'Sharing':
             try:
                 print('##msg sharing url:{}'.format(msg.url))
                 orgLink = qs.revertShortLink(msg.url)
