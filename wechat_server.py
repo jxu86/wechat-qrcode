@@ -9,6 +9,9 @@ shopId='r5z8PqwirG'
 revGroups = [bot.groups().search('优选品牌限时超低折扣群')[0]]
 sendGroups = [bot.groups().search('周小姐的品牌正品特卖店')[0]]
 
+# revGroups = [bot.groups().search('warnning')[0]]
+# sendGroups = [bot.groups().search('warnning')[0]]
+
 class Server():
     def __init__(self, params):
         self._config = params['config']
@@ -21,10 +24,9 @@ class Server():
     def monitorGroup(msg):
         print('msg type==>',msg.type)
         print('msg member name==>',msg.member.name)
+        # print('msg is_at==>',msg.is_at)
         if msg.member.name != '晴朗':
             return
-        # g = bot.groups().search('warnning')[0]
-        # g = bot.groups().search('周小姐的品牌正品特卖店')[0]
         g = sendGroups[0]
         print('group==>', g)
         imgTmpPath = 'file_tmp/tmp.jpg'
@@ -40,7 +42,8 @@ class Server():
         elif msg.type == 'Text':
             try:
                 text = msg.text
-                if text and text.find('直播') == -1:
+                print('msg text:{}'.format(text))
+                if text and text.find('直播') == -1 and text.find('@') == -1:
                     g.send(text)
             except Exception as e:
                 print('createNewImg error:{}'.format(e))
