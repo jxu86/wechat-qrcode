@@ -82,6 +82,7 @@ class Server():
     def run(self):
         print('run...')
         self._bot.join()
+        print('run over')
 
 def parse_config(config_path):
     with open(config_path) as f:
